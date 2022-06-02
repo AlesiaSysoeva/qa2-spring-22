@@ -5,6 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
 
 public class QAGuruHomeWork {
     private final String HOME_PAGE_URL = "http://www.qaguru.lv:8089/tickets/step2.php?afrom=CPT&bfrom=BCN";
@@ -14,8 +16,8 @@ public class QAGuruHomeWork {
     private final By ADULTS = By.id("adults");
     private final By CHILDREN = By.id("children");
     private final By BUGS = By.id("bugs");
-    private final By FLIGHT = By.xpath(".//option[@value = '14']");
-    private final By CLICK = By.xpath(".//span[@onclick =  'setLang();']");
+    private final By FLIGHT = By.id("flight");
+    private final By CLICK = By.xpath(".//span[@onclick = 'setLang();']");
 
     @Test
     public void fillInTheForm () {
@@ -24,28 +26,24 @@ public class QAGuruHomeWork {
         browser.manage().window().maximize();
         browser.get(HOME_PAGE_URL);
 
-        WebElement searchField1 =  browser.findElement(NAME);
-        searchField1.sendKeys("Alesia");
-        WebElement searchField2 =  browser.findElement(SURNAME);
-        searchField2.sendKeys("SYSOEVA");
-        WebElement searchField3 = browser.findElement(DISCOUNT);
-        searchField3.sendKeys("321111-77745");
-        WebElement searchField4 = browser.findElement(ADULTS);
-        searchField4.sendKeys("1");
-        WebElement searchField5 = browser.findElement(CHILDREN);
-        searchField5.sendKeys("1");
-        WebElement searchField6 = browser.findElement(BUGS);
-        searchField6.sendKeys("3");
-        WebElement searchField7 = browser.findElement(FLIGHT);
-        searchField7.click();
-        WebElement searchField8 = browser.findElement(CLICK);
-        searchField8.click();
+        WebElement name =  browser.findElement(NAME);
+        name.sendKeys("Alesia");
+        WebElement surname =  browser.findElement(SURNAME);
+        surname.sendKeys("Sysoeva");
+        WebElement discount = browser.findElement(DISCOUNT);
+        discount.sendKeys("321111-77745");
+        WebElement adults = browser.findElement(ADULTS);
+        adults.sendKeys("1");
+        WebElement children = browser.findElement(CHILDREN);
+        children.sendKeys("1");
+        WebElement bugs = browser.findElement(BUGS);
+        bugs.sendKeys("3");
+        WebElement selectElement = browser.findElement(FLIGHT);
+        Select selectObject = new Select(selectElement);
+        selectObject.selectByIndex(4);
+        WebElement clickBtn = browser.findElement(CLICK);
+        clickBtn.click();
 
     }
-
-
-
-
-
 
 }

@@ -6,6 +6,12 @@ public class Student {
     private int age;
     private String personalCode;
 
+    public void setCourse(String course) {
+        this.course = course;
+    }
+
+    private String course;
+
     public String getFirstName() {
         return firstName;
     }
@@ -36,5 +42,9 @@ public class Student {
 
     public void setPersonalCode(String personalCode) {
         this.personalCode = personalCode;
+    }
+
+    public String getCourse() {
+        return course;
     }
 }
