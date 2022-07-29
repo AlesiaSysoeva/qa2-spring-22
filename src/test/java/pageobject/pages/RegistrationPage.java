@@ -8,7 +8,7 @@ public class RegistrationPage {
     private final By DISCOUNT = By.id("discount");
     private final By ADULTS = By.id("adults");
     private final By CHILDREN = By.id("children");
-    private final By BUGS = By.id("bugs");
+    private final By BAGS = By.id("bugs");
     private final By FLIGHT = By.id("flight");
     private final By CLICK = By.xpath(".//span[@onclick = 'setLang();']");
     private final By BOOK = By.id("book2");
@@ -38,8 +38,8 @@ public class RegistrationPage {
         baseFunc.type(CHILDREN, textToFind);
     }
 
-    public void searchForBugs(String textToFind) {
-        baseFunc.type(BUGS, textToFind);
+    public void searchForBags(String textToFind) {
+        baseFunc.type(BAGS, textToFind);
     }
 
     public void searchForFlight(String text) {

@@ -13,7 +13,7 @@ public class FlightTests {
     private final String DISCOUNT = "321111";
     private final String ADULTS = "1";
     private final String CHILDREN = "1";
-    private final String BUGS = "3";
+    private final String BAGS = "3";
 
     @Test
     public void fillInTheForm () {
@@ -30,7 +30,7 @@ public class FlightTests {
         registrationPage.searchForDiscount(DISCOUNT);
         registrationPage.searchForAdults(ADULTS);
         registrationPage.searchForChildren(CHILDREN);
-        registrationPage.searchForBugs(BUGS);
+        registrationPage.searchForBags(BAGS);
         registrationPage.searchForFlight("13");
         registrationPage.getPrice();
         registrationPage.book();
