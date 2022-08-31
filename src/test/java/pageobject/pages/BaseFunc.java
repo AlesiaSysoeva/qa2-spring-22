@@ -9,6 +9,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
+import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
+
 public class BaseFunc {
     private WebDriver driver;
     private WebDriverWait wait;
@@ -28,6 +31,10 @@ public class BaseFunc {
         driver.get(url);
     }
 
+    public void click(WebElement we) {
+        wait.until(elementToBeClickable(we)).click();
+    }
+
     public void click(By locator) {
         wait.until(ExpectedConditions.elementToBeClickable(locator));
         WebElement we = driver.findElement(locator);
@@ -40,10 +47,14 @@ public class BaseFunc {
     }
 
     public void type(By locator, String text) {
-        wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        wait.until(presenceOfElementLocated(locator));
         WebElement we = driver.findElement(locator);
         we.clear();
         we.sendKeys(text);
+    }
+
+    public void type(By locator, int text) {
+        type(locator, String.valueOf(text));
     }
 
     public void select(By locator, String text) {
@@ -63,7 +74,7 @@ public class BaseFunc {
     }
 
     public void pressKey(By locator, Keys key) {
-        wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        wait.until(presenceOfElementLocated(locator));
         WebElement we = driver.findElement(locator);
         we.sendKeys(key);
     }
@@ -86,5 +97,22 @@ public class BaseFunc {
                 break;
             }
         }
+    }
+
+    public void selectDima(By locator, String text) {
+        Select select = new Select(driver.findElement(locator));
+        select.selectByVisibleText(text);
+    }
+
+    public List<WebElement> findElements(By locator) {
+        return driver.findElements(locator);
+    }
+
+    public WebElement findElement(By locator) {
+        return wait.until(presenceOfElementLocated(locator));
+    }
+
+    public void waitForElementCountAtLeast(By locator, int minCount) {
+        wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(locator, minCount));
     }
 }
