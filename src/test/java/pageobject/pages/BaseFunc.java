@@ -9,8 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
-import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 public class BaseFunc {
     private WebDriver driver;
@@ -114,5 +113,9 @@ public class BaseFunc {
 
     public void waitForElementCountAtLeast(By locator, int minCount) {
         wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(locator, minCount));
+    }
+
+    public boolean waitForText(By locator, String text) {
+       return wait.until(textToBePresentInElementLocated(locator, text));
     }
 }

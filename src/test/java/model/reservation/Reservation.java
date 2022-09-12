@@ -2,10 +2,7 @@ package model.reservation;
 
 import io.cucumber.core.internal.com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.cucumber.core.internal.com.fasterxml.jackson.annotation.JsonProperty;
-import net.bytebuddy.utility.RandomString;
 import org.apache.commons.lang3.RandomStringUtils;
-
-import java.util.Random;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Reservation {

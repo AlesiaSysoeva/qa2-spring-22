@@ -20,6 +20,7 @@ public class ReservationStepDefs {
     private SeatsPage seatsPage;
     private List<Reservation> response;
     private Reservation reservationFromApi;
+    private FinalPage finalPage;
 
     private final String HOME_PAGE_URL = "http://qaguru.lv:8089/tickets";
 
@@ -39,8 +40,7 @@ public class ReservationStepDefs {
     @When("we are selecting airports")
     public void select_airports() {
         homePage.selectAirports(reservation);
-        homePage.pressGoBtn();
-        infoPage = new UserInfoPage(baseFunc);
+        infoPage = homePage.pressGoBtn();
     }
 
     @Then("selected airports appears on client info page")
@@ -62,7 +62,7 @@ public class ReservationStepDefs {
 
     @Then("passenger name appears")
     public void check_passenger_name() {
-       assertEquals(reservation.getFirstName(), infoPage.getPassengerName(), "Incorrect name");
+       assertTrue(infoPage.ifPassengerNamePresents(reservation.getFirstName()), "Incorrect name");
     }
 
     @Then("price is {int} EUR")
@@ -72,8 +72,7 @@ public class ReservationStepDefs {
 
     @When("we are pressing Book button")
     public void click_on_book_btn() {
-        infoPage.click_On_Book_Btn();
-        seatsPage = new SeatsPage(baseFunc);
+        seatsPage = infoPage.click_On_Book_Btn();
     }
 
     @When("selecting seat number")
@@ -83,18 +82,17 @@ public class ReservationStepDefs {
 
     @Then("selected seat number appears")
     public void check_seat_number() {
-        assertEquals(reservation.getSeatNumber(), );
-        .....
+        assertEquals(reservation.getSeatNumber(), seatsPage.getSelectedSeatNr(), "Wrong seat seleced number!" );
     }
 
     @When("we are placing the order")
-    public void placing_the_order() {
-        ...
+    public void place_the_order() {
+        finalPage = seatsPage.pressBookBtn();
     }
 
     @Then("successful booking page appears")
-    public void check_successful_booking_page() {
-        ...
+    public void check_if_success() {
+        assertTrue(finalPage.isReservationSuccessful(), "Reservation isn't successful!");
     }
 
     @When("we requesting all reservations via API")
@@ -119,7 +117,7 @@ public class ReservationStepDefs {
     public void check_reservation_date() {
         assertEquals(reservation.getLastName(), reservationFromApi.getLastName(), "Wrong Last Name!");
         assertEquals(reservation.getDiscount(), reservationFromApi.getDiscount(), "Wrong Discount!");
-        assertEquals(reservation.getFlightDate(), reservationFromApi.getFlightDate(), "Wrong Flight Date!");
+        assertEquals(reservation.getFlightDate().split("-")[0], reservationFromApi.getFlightDate(), "Wrong Flight Date!");
         assertEquals(reservation.getAdultsCount(), reservationFromApi.getAdultsCount(), "Wrong Adult Count!");
         assertEquals(reservation.getChildCount(), reservationFromApi.getChildCount(), "Wrong Child Count!");
         assertEquals(reservation.getBagsCount(), reservationFromApi.getBagsCount(), "Wrong Bags Count!");

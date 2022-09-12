@@ -19,6 +19,7 @@ public class UserInfoPage {
     private final By GET_PRICE_BTN = By.xpath(".//span[@onclick = 'setLang();']");
     private final By GET_PRICE_RESPONSE = By.id("response");
     private final By BOOK_BTN = By.id("book2");
+    private final By CLIENT_NAME = By.xpath(".//div[@id = 'response']/span");
 
     private BaseFunc baseFunc;
 
@@ -45,19 +46,18 @@ public class UserInfoPage {
         baseFunc.click(GET_PRICE_BTN);
     }
 
-    public String getPassengerName() {
-        String responseText = baseFunc.findElement(GET_PRICE_RESPONSE).getText();
-
-        return StringUtils.substringBetween(responseText, "Mr/Ms ", "!");
+    public boolean ifPassengerNamePresents(String text) {
+        return baseFunc.waitForText(CLIENT_NAME, text + "!" );
     }
 
     public int getPrice() {
         String responseText = baseFunc.findElement(GET_PRICE_RESPONSE).getText();
-        return Integer.parseInt(StringUtils.substringBetween(responseText, "to for ", " EUR"));
+        return Integer.parseInt(StringUtils.substringBetween(responseText, "for ", " EUR"));
     }
 
-    public void click_On_Book_Btn() {
+    public SeatsPage click_On_Book_Btn() {
         baseFunc.click(BOOK_BTN);
+        return new SeatsPage(baseFunc);
     }
 }
 
